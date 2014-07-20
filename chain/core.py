@@ -19,10 +19,16 @@ class Chain(object):
             blockchain=self.blockchain,
         )
 
-    def _get_response(self, path, data={}):
+    def _get(self, path, data={}):
         path = self.base_url + path
         data.update({'key': self.api_key})
         response = self.session.get(path, params=data)
+        print response.request.url
+        return response
+
+    def _put(self, path, payload, data={}):
+        path = self.base_url + path
+        response = self.session.put(path, data=payload, params=data)
         print response.request.url
         return response
 
@@ -31,7 +37,7 @@ class Chain(object):
         path = "/addresses/{address}".format(
             address=address
         )
-        response = self._get_response(path)
+        response = self._get(path)
         return response.json()
 
     def get_addresses(self, addresses):
@@ -46,7 +52,7 @@ class Chain(object):
         path = "/addresses/{address}/transactions".format(
             address=address,
             )
-        response = self._get_response(path, data=data)
+        response = self._get(path, data=data)
         return response.json()
 
     def get_address_transactions(self, addresses, limit=50):
@@ -57,7 +63,7 @@ class Chain(object):
 
     def get_address_unspents(self, address):
         path = "/addresses/{address}/unspents".format(address=address)
-        response = self._get_response(path)
+        response = self._get(path)
         return response.json()
 
     def get_addresses_unspents(self, addresses):
@@ -68,10 +74,35 @@ class Chain(object):
 
     def get_address_op_returns(self, address):
         path =  '/addresses/{address}/op-returns'.format(address=address)
-        response = self._get_response(path)
+        response = self._get(path)
         return response.json()
 
-    def get
+    def get_transaction(self, thash):
+        path = '/transactions/{hash}'.format(hash=thash)
+        repsonse = self._get(path)
+        return repsonse.json()
+
+    def get_transaction_op_return(self, thash):
+        path = '/transactions/{hash}/op-return'.format(hash=thash)
+        response = self._get(path)
+        return response.json()
+
+    def send_transaction(self, thex):
+        path = '/transactions'
+        payload = {'hex':thex}
+        response = self._put(path, payload)
+        return response.json()
+
+    def get_block(self, hash_or_height):
+        path = '/blocks/{hash}'.format(hash=hash_or_height)
+        response = self._get(path)
+        return response.json()
+
+    def get_latest_block(self):
+        path = '/blocks/latest'
+        response = self._get(path)
+        return response.json()
+
 
 
 
