@@ -4,20 +4,21 @@
 
 import requests
 
-DEFAULT_CHAIN_URL = 'https://api.chain.com/{version}/{blockchain}'
+DEFAULT_CHAIN_URL = 'https://api.chain.com/%s/%s'
 
 
 class Chain(object):
 
     def __init__(self, api_key, blockchain='bitcoin', version='v1'):
+
+        self.base_url = DEFAULT_CHAIN_URL % (self.api_version, self.blockchain)
+
         self.api_key = api_key
         self.session = requests.Session()
         self.session.auth = (api_key, '')
         self.blockchain = blockchain
         self.api_version = version
-        self.base_url = DEFAULT_CHAIN_URL.format(version=self.api_version,
-            blockchain=self.blockchain,
-        )
+
 
     def _get(self, path, data={}):
         path = self.base_url + path
