@@ -19,7 +19,7 @@ required = ['requests']
 
 setup(
     name='chain-python',
-    version='0.0.1',
+    version='0.0.2',
     description="The Unofficial Python SDK for Chain's Bitcoin API",
     long_description=open('README.md').read(),
     author='Mahdi Yusuf',
