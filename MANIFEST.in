@@ -1,4 +1,4 @@
-chain.pem
-tests/*.py
-docs/*
-*.md
+include chain.pem
+include tests/*.py
+include docs/*
+include *.md
