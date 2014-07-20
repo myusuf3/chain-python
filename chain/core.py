@@ -11,13 +11,13 @@ class Chain(object):
 
     def __init__(self, api_key, blockchain='bitcoin', version='v1'):
 
-        self.base_url = DEFAULT_CHAIN_URL % (self.api_version, self.blockchain)
+        self.base_url = DEFAULT_CHAIN_URL % (version, blockchain)
 
         self.api_key = api_key
         self.session = requests.Session()
         self.session.auth = (api_key, '')
         self.blockchain = blockchain
-        self.api_version = version
+        self.version = version
 
 
     def _get(self, path, data={}):
