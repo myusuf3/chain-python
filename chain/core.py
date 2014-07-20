@@ -24,13 +24,11 @@ class Chain(object):
         path = self.base_url + path
         data.update({'key': self.api_key})
         response = self.session.get(path, params=data)
-        print response.request.url
         return response
 
     def _put(self, path, payload, data={}):
         path = self.base_url + path
         response = self.session.put(path, data=payload, params=data)
-        print response.request.url
         return response
 
 
