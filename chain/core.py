@@ -103,6 +103,11 @@ class Chain(object):
         response = self._get(path)
         return response.json()
 
+    def get_block_op_returns(self, hash_or_height):
+        path = '/blocks/{hash}/op-returns'.format(hash=hash_or_height)
+        response = self._get(path)
+        return response.json()
+
 
 
 
